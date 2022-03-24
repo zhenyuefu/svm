@@ -1,0 +1,112 @@
+[
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "constants.c"
+  ],
+  "file": "constants.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "value.c"
+  ],
+  "file": "value.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "varray.c"
+  ],
+  "file": "varray.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "env.c"
+  ],
+  "file": "env.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "frame.c"
+  ],
+  "file": "frame.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "prim.c"
+  ],
+  "file": "prim.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "vm.c"
+  ],
+  "file": "vm.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "gc_mark.c"
+  ],
+  "file": "gc_mark.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "gc.c"
+  ],
+  "file": "gc.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "bytecode.c"
+  ],
+  "file": "bytecode.c"
+ },
+ {
+  "directory": "/Users/zhenyue/workspace/3IN018/svm/src",
+  "arguments": [
+   "gcc",
+   "-g",
+   "-c",
+   "main.c"
+  ],
+  "file": "main.c"
+ }
+]

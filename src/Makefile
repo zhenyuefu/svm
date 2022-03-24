@@ -6,7 +6,7 @@ CFLAGS = -g
 SOURCES = value.h value.c varray.h varray.c env.h env.c frame.h frame.c vm.h vm.c prim.c gc.h gc.c gc_mark.c bytecode.h bytecode.c main.c
 OBJECTS = constants.o value.o varray.o env.o frame.o prim.o vm.o gc_mark.o gc.o bytecode.o main.o
 
-CTOPDIR = ../../scompiler/src
+CTOPDIR = ../../scompiler
 CTOP = $(CTOPDIR)/scompiler
 
 all: constants main
