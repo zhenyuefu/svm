@@ -25,17 +25,18 @@
 /** Structure d'un environnement (variables locales).
  */
 typedef struct _env {
-  int gc_mark;  /*!< marque pour le GC */
-  varray_t * content; /*!< contenu de l'environnement (tableau de cellules). */
-  struct _env *next; /*!< environnement suivant (ou "englobant") dans la chaîne. */
+  int gc_mark;       /*!< marque pour le GC */
+  varray_t *content; /*!< contenu de l'environnement (tableau de cellules). */
+  struct _env
+      *next; /*!< environnement suivant (ou "englobant") dans la chaîne. */
 } env_t;
 
-/* 
+/*
  * Fonctions de manipulation des environnements.
  */
 
-value_t *env_fetch(env_t *env, unsigned int pos);    
-void env_store(env_t *env, unsigned int pos, value_t *nvalue); 
-void env_print(env_t *env);                    
+value_t *env_fetch(env_t *env, unsigned int pos);
+void env_store(env_t *env, unsigned int pos, value_t *nvalue);
+void env_print(env_t *env);
 
 #endif

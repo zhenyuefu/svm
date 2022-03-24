@@ -20,10 +20,11 @@
 /** Structure générique pour tout tableau de cellules.
  */
 typedef struct {
-  value_t* content; /*!< le contenu (tableau dynamique de cellules) */      
+  value_t *content;      /*!< le contenu (tableau dynamique de cellules) */
   unsigned int capacity; /*!< capacité du tableau (taille allouée) */
-  unsigned int top; /*!< dernier élément utilisé (ou sommet de pile).
-                     * Remarque : tous les éléments entre top+1 et capacity-1 sont inutilisés (mais alloués) */ 
+  unsigned int top;      /*!< dernier élément utilisé (ou sommet de pile).
+                          * Remarque : tous les éléments entre top+1 et capacity-1
+                          * sont inutilisés (mais alloués) */
 } varray_t;
 
 /*

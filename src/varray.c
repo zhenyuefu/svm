@@ -5,11 +5,11 @@
  * Redistribution possible sous licence GPL v2.0 ou ultérieure
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "varray.h"
 
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /** Allocation d'un tableau de valeurs.
  * Remarque : les tableaux de valeurs ne sont pas directement gérés
@@ -19,18 +19,18 @@
  * \return un pointeur vers la structure allouée pour le tableau de valeurs.
  */
 varray_t *varray_allocate(unsigned int initial_capacity) {
-  varray_t *res = (varray_t *) malloc(sizeof(varray_t));
+  varray_t *res = (varray_t *)malloc(sizeof(varray_t));
 
   assert(initial_capacity >= 0);
 
-  res->content  = (value_t *) malloc(sizeof(value_t) * initial_capacity);  
-  assert(res->content!=NULL);
-  res->capacity = initial_capacity;                                 
-  res->top      = 0; // le marqueur top à 0 indique qu'il n'y a aucun élément (taille 0)
+  res->content = (value_t *)malloc(sizeof(value_t) * initial_capacity);
+  assert(res->content != NULL);
+  res->capacity = initial_capacity;
+  res->top =
+      0;  // le marqueur top à 0 indique qu'il n'y a aucun élément (taille 0)
 
   return res;
 }
-
 
 /** Extension de la taille allouée d'un tableau de valeurs.
  * \param[in,out] varray le tableau de valeurs à étendre.
@@ -41,26 +41,24 @@ varray_t *varray_allocate(unsigned int initial_capacity) {
  * est augmentée en conséquence.
  */
 void varray_expandn(varray_t *varray, unsigned int n) {
-
   // déplacer le 'top'
-  varray->top += n;                                    
+  varray->top += n;
 
   // si le nouveau 'top' est au delà de la capacité
   // alors on augmente cette dernière
-  if(varray->top > varray->capacity) {             
+  if (varray->top > varray->capacity) {
     do {
       // de façon habituelle, pour ne pas réallouer
       // trop souvent, on multiplie par 2 la capacité.
-      varray->capacity *= 2;                           
-    } while(varray->capacity < varray->top);       
+      varray->capacity *= 2;
+    } while (varray->capacity < varray->top);
     // et on répète tant que la capacité n'est pas suffisante
     // pour englober le nouveau top
-    
+
     // la réallocation suit
-    varray->content 
-      = (value_t *) realloc(varray->content, 
-                            sizeof(value_t) * varray->capacity);
-    assert(varray->content!=NULL);
+    varray->content =
+        (value_t *)realloc(varray->content, sizeof(value_t) * varray->capacity);
+    assert(varray->content != NULL);
   }
 }
 
@@ -78,7 +76,7 @@ void varray_popn(varray_t *varray, unsigned int n) {
   varray->top -= n;
 }
 
-/** Accéder à la n-ième valeur d'un tableau de valeurs. 
+/** Accéder à la n-ième valeur d'un tableau de valeurs.
  * Remarque : cette fonction effectue un accès de type tableau.
  * \param[in] varray le tableau de valeurs considéré.
  * \param n l'index de la valeur accédée (0 pour le premier élément).
@@ -86,7 +84,7 @@ void varray_popn(varray_t *varray, unsigned int n) {
  */
 value_t *varray_at(varray_t *varray, unsigned int n) {
   // précondition : l'index doit exister
-  assert(n<varray->top);
+  assert(n < varray->top);
   return &varray->content[n];
 }
 
@@ -98,14 +96,14 @@ value_t *varray_at(varray_t *varray, unsigned int n) {
  */
 void varray_set_at(varray_t *varray, unsigned int n, value_t *value) {
   // précondition : l'index doit exister
-  assert(n<varray->top);
-  *(varray_at(varray,n)) = *value;
+  assert(n < varray->top);
+  *(varray_at(varray, n)) = *value;
 }
 
-/** Accéder à la n-ième valeur à partir du sommet de la pile. 
+/** Accéder à la n-ième valeur à partir du sommet de la pile.
  * \param[in] varray le tableau de valeurs considéré comme une pile.
- * \param n le déplacement entre le sommet (top) et la valeur accédée (0 pour top).
- * \return la valeur située à "distance" n du sommet de la pile.
+ * \param n le déplacement entre le sommet (top) et la valeur accédée (0 pour
+ * top). \return la valeur située à "distance" n du sommet de la pile.
  */
 value_t *varray_top_at(varray_t *varray, unsigned int n) {
   // précondition : l'index doit exister
@@ -113,13 +111,11 @@ value_t *varray_top_at(varray_t *varray, unsigned int n) {
   return &varray->content[varray->top - n - 1];
 }
 
-/** Accédera sommet de la pile. 
+/** Accédera sommet de la pile.
  * \param[in] varray le tableau de valeurs considéré comme une pile.
  * \return le sommet de la pile.
  */
-value_t *varray_top(varray_t *varray) {
-  return varray_top_at(varray,0);
-}
+value_t *varray_top(varray_t *varray) { return varray_top_at(varray, 0); }
 
 /** Modifier la n-ième case à partir du sommet de la pile.
  * \param[in,out] varray le tableau de valeurs considéré comme une pile.
@@ -127,7 +123,7 @@ value_t *varray_top(varray_t *varray) {
  * \param[in] value la nouvelle valeur à placer dans la pile.
  */
 void varray_set_top_at(varray_t *varray, unsigned int n, value_t *value) {
-  *(varray_top_at(varray,n)) = *value;
+  *(varray_top_at(varray, n)) = *value;
 }
 
 /** Modifier le sommet de la pile.
@@ -135,7 +131,7 @@ void varray_set_top_at(varray_t *varray, unsigned int n, value_t *value) {
  * \param[in] value la nouvelle valeur à placer en sommet de pile.
  */
 void varray_set_top(varray_t *varray, value_t *value) {
-  *(varray_top_at(varray,0)) = *value;
+  *(varray_top_at(varray, 0)) = *value;
 }
 
 /** Empiler une valeur en sommet de pile.
@@ -143,8 +139,8 @@ void varray_set_top(varray_t *varray, value_t *value) {
  * \param[in] value la nouvelle valeur à empiler.
  */
 void varray_push(varray_t *varray, value_t *value) {
-  varray_expandn(varray,1);
-  varray_set_top(varray,value);
+  varray_expandn(varray, 1);
+  varray_set_top(varray, value);
 }
 
 /** Dépiler la valeur en sommet de pile.
@@ -153,22 +149,18 @@ void varray_push(varray_t *varray, value_t *value) {
  */
 value_t *varray_pop(varray_t *varray) {
   value_t *value = varray_top(varray);
-  varray_popn(varray,1);
+  varray_popn(varray, 1);
   return value;
 }
 
 /** Retourner la taille du tableau.
  */
-int varray_size(varray_t *varray) {
-  return varray->top;
-}
+int varray_size(varray_t *varray) { return varray->top; }
 
 /** Tester si le tableau est vide.
  * \return 1 si le tableau est vide, 0 sinon
  */
-int varray_empty(varray_t *varray) {
-  return varray->top == 0;
-}
+int varray_empty(varray_t *varray) { return varray->top == 0; }
 
 /** Destruction d'un tableau de valeurs.
  * Remarque : les valeurs contenues ne sont pas désallouées.
@@ -179,14 +171,14 @@ void varray_destroy(varray_t *varray) {
   free(varray);
 }
 
-/** Affichage d'un tableau de valeurs sur la sortie standard (pour débogage). 
+/** Affichage d'un tableau de valeurs sur la sortie standard (pour débogage).
  * \param[in] varray le tableau à afficher.
  */
 void varray_print(varray_t *varray) {
   int i;
   printf("[");
-  for(i=0; i<varray_size(varray); i++) {
-    if((i > 0) && i<varray_size(varray)) {
+  for (i = 0; i < varray_size(varray); i++) {
+    if ((i > 0) && i < varray_size(varray)) {
       printf(" ");
     }
     value_print(varray_at(varray, i));
@@ -201,12 +193,12 @@ void varray_print(varray_t *varray) {
 void varray_stack_print(varray_t *varray) {
   int i;
   printf("[");
-  if(!varray_empty(varray)) {
+  if (!varray_empty(varray)) {
     value_print(varray_top(varray));
     printf("|");
   }
-  for(i=1; i<varray_size(varray); i++) {
-    if((i > 1) && i<varray_size(varray)) {
+  for (i = 1; i < varray_size(varray); i++) {
+    if ((i > 1) && i < varray_size(varray)) {
       printf(" ");
     }
     value_print(varray_top_at(varray, i));

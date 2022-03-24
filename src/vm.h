@@ -21,23 +21,21 @@
  * - le GC
  */
 
-#include "value.h"
-#include "gc.h"
 #include "bytecode.h"
-#include "frame.h"
 #include "constants.h"
+#include "frame.h"
+#include "gc.h"
+#include "value.h"
 
 /** La représentation de la machine virtuelle. */
 typedef struct _vm {
-  int debug_vm; /*!< VM en mode debug (1) ou non (0) */
+  int debug_vm;    /*!< VM en mode debug (1) ou non (0) */
   varray_t *globs; /*!< l'environnement global (variables globales) */
-  varray_t *stack;  /*!< la pile */
-  frame_t *frame; /*!< la fenêtre d'entrée */
+  varray_t *stack; /*!< la pile */
+  frame_t *frame;  /*!< la fenêtre d'entrée */
   program_t *program;
   gc_t *gc;
 } vm_t;
-
-
 
 /** La taille allouée pour la pile */
 #define STACK_SIZE 256
@@ -50,10 +48,11 @@ typedef struct _vm {
 
 /* Manipulation de l'état de la VM */
 
-vm_t * init_vm(program_t *program, int debug_vm, int debug_gc, int collection_frequency);
+vm_t *init_vm(program_t *program, int debug_vm, int debug_gc,
+              int collection_frequency);
 
 /* Exécution du bytecode (cf. vm_execute.c) */
 
-void vm_execute(vm_t * vm);
+void vm_execute(vm_t *vm);
 
 #endif
