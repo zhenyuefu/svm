@@ -178,6 +178,10 @@ int bytecode_print_instr(program_t *program, unsigned int pc) {
       printf("RETURN\n");
       return pc + 1;
     }
+    case I_ERROR: {
+      printf("ERROR\n");
+      return pc + 1;
+    }
     case I_JUMP: {
       printf("JUMP %d\n", program->bytecode[pc + 1]);
       return pc + 2;

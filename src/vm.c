@@ -12,6 +12,8 @@
 #include <stdlib.h>
 
 #include "constants.h"
+#include "gc.h"
+#include "prim.h"
 
 /** Initialisation de la machine virtuelle.
  * \param[in] program le programme en bytecode à exécuter.
@@ -204,6 +206,14 @@ void vm_execute_instr(vm_t *vm, int instr) {
       vm->stack->top = vm->frame->sp;
       varray_push(vm->stack, res);
       vm->frame = frame_pop(vm->frame);
+    } break;
+
+      // error
+    case I_ERROR: {
+      value_t *val = varray_pop(vm->stack);
+
+      printf("Exit with Error number %d\n", value_int_get(val));
+      exit(EXIT_FAILURE);
     } break;
 
       // saut inconditionnel
