@@ -56,4 +56,8 @@ env_t *gc_alloc_env(gc_t *gc, unsigned int capacity, env_t *next);
 
 void mark_and_trace_roots(struct _vm *vm);
 
+/** Algorithme de récupération automatique de mémoire (Garbage Colletion).
+ */
+void gc_collect(struct _vm *vm);
+
 #endif

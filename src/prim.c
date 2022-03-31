@@ -5,11 +5,15 @@
  * Redistribution possible sous licence GPL v2.0 ou ultérieure
  */
 
+#include "prim.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "constants.h"
+#include "value.h"
+#include "varray.h"
 #include "vm.h"
 
 /** \file prim.c
@@ -134,6 +138,28 @@ void do_zerop_prim(varray_t *stack) {
   }
 }
 
+/** Primitive de display
+ * \param[in,out] stack la zone de pile concernée.
+ */
+void do_display_prim(varray_t *stack) {
+  value_t *v = varray_top(stack);
+  if (v->type == T_INT) {
+    printf("%d", value_int_get(v));
+  } else if (v->type == T_BOOL) {
+    printf("%s", value_is_true(v) ? "#t" : "#f");
+  } else {
+    printf("<type: %d>", v->type);
+  }
+  value_fill_unit(v);
+}
+
+void do_newline_prim(varray_t *stack) {
+  printf("\n");
+  value_t value;
+  value_fill_unit(&value);
+  varray_push(stack, &value);
+}
+
 /** Primitive de construction
  * \param[in,out] vm l'état de la machine.
  * \param[in,out] stack la zone de pile concernée.
@@ -254,6 +280,16 @@ void execute_prim(vm_t *vm, varray_t *stack, int prim, int n) {
 
     case P_ZEROP:
       do_zerop_prim(stack);
+      break;
+
+      // display
+    case P_DISPLAY:
+      do_display_prim(stack);
+      break;
+
+      // newline
+    case P_NEWLINE:
+      do_newline_prim(stack);
       break;
 
     default:

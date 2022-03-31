@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 #include "constants.h"
+#include "env.h"
 
 /** Préparation d'une valeur Unit.
  * \param[in,out] value la valeur à préparer.
