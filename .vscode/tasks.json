@@ -8,7 +8,12 @@
             "type": "shell",
             "command": "make",
             "options": {
-                "cwd": "/src",
+                "cwd": "src"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         },
         {
@@ -16,8 +21,9 @@
             "type": "shell",
             "command": "make clean",
             "options": {
-                "cwd": "/src",
-            }
+                "cwd": "src"
+            },
+            "problemMatcher": []
         }
     ]
 }
