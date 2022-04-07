@@ -12,8 +12,10 @@
 #include <stdlib.h>
 
 #include "constants.h"
+#include "env.h"
 #include "gc.h"
 #include "prim.h"
+#include "varray.h"
 
 /** Initialisation de la machine virtuelle.
  * \param[in] program le programme en bytecode à exécuter.
@@ -58,7 +60,7 @@ vm_t *init_vm(program_t *program, int debug_vm, int debug_gc,
  * \return la prochaine instruction de bytecode.
  */
 int vm_next(vm_t *vm) {
-  int next = vm->frame->pc;
+  unsigned int next = vm->frame->pc;
   vm->frame->pc = vm->frame->pc + 1;
   return vm->program->bytecode[next];
 }
@@ -91,6 +93,19 @@ void vm_execute_instr(vm_t *vm, int instr) {
     case I_GFETCH:
       varray_push(vm->stack, varray_at(vm->globs, vm_next(vm)));
       break;
+
+    case I_ALLOC: {
+      env_t *env = gc_alloc_env(vm->gc, vm_next(vm), vm->frame->env);
+      vm->frame->env = env;
+    } break;
+
+    case I_DELETE: {
+      env_t *env = vm->frame->env;
+      vm->frame->env = env->next;
+      vm_next(vm);
+      varray_destroy(env->content);
+      free(env);
+    } break;
 
       // dépiler le sommet de pile et le sauvegarder dans l'environnement local
     case I_STORE:
@@ -163,7 +178,7 @@ void vm_execute_instr(vm_t *vm, int instr) {
       switch (fun->type) {
           // si c'est une fermeture
         case T_FUN: {
-          int i;
+          int i = 0;
           closure_t closure = value_closure_get(fun);
           env_t *env = gc_alloc_env(vm->gc, nb_args, closure.env);
 

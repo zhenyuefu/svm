@@ -35,7 +35,7 @@
 
 /** Structure du segment de byte-code.
  */
-typedef struct _program {
+typedef struct program_s {
   int *bytecode;     /*!< le contenu du segment de byte-code. */
   unsigned int size; /*!< la taille segment. */
 } program_t;

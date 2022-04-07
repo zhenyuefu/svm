@@ -124,6 +124,17 @@ int bytecode_print_instr(program_t *program, unsigned int pc) {
       printf("GFETCH %d\n", program->bytecode[pc + 1]);
       return pc + 2;
     }
+
+    case I_ALLOC: {
+      printf("ALLOC %d\n", program->bytecode[pc + 1]);
+      return pc + 2;
+    }
+
+    case I_DELETE: {
+      printf("DELETE %d\n", program->bytecode[pc + 1]);
+      return pc + 2;
+    }
+
     case I_STORE: {
       printf("STORE %d\n", program->bytecode[pc + 1]);
       return pc + 2;
